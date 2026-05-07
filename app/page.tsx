@@ -75,10 +75,10 @@ export default function HomePage() {
               {mounted && isAuthenticated ? 'Go to Dashboard' : 'Get Started'}
             </button>
             <button
-              onClick={() => router.push('/dashboard/demo')}
+              onClick={() => router.push('/demo-login')}
               className="px-8 py-3 text-base font-semibold text-blue-600 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
-              View Demo Design
+              View New Design Demo
             </button>
           </div>
         </div>

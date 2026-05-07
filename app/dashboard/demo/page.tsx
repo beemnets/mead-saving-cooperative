@@ -1,17 +1,55 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Card, CardHeader, CardBody, Button, Badge, Alert, Input } from '@/components/ui';
 
 export default function DemoDashboardPage() {
+  const [demoRole, setDemoRole] = useState<'admin' | 'manager' | null>(null);
+  const [demoUser, setDemoUser] = useState<string>('');
+  const [mounted, setMounted] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    setMounted(true);
+    const role = localStorage.getItem('demoRole') as 'admin' | 'manager' | null;
+    const user = localStorage.getItem('demoUser') || '';
+    
+    if (!role) {
+      router.push('/demo-login');
+    } else {
+      setDemoRole(role);
+      setDemoUser(user);
+    }
+  }, [router]);
+
+  if (!mounted || !demoRole) {
+    return null;
+  }
+
   return (
     <div className="space-y-8">
       {/* Welcome Banner */}
       <div>
-        <h1 className="text-4xl font-bold text-foreground">Welcome to Modern Dashboard</h1>
-        <p className="text-foreground-secondary mt-2">
-          This is a preview of the new design system and components
-        </p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold text-foreground">Welcome, {demoUser}</h1>
+            <p className="text-foreground-secondary mt-2">
+              Modern Design System Preview - <Badge variant={demoRole === 'admin' ? 'info' : 'primary'}>{demoRole.charAt(0).toUpperCase() + demoRole.slice(1)} Role</Badge>
+            </p>
+          </div>
+          <Button 
+            onClick={() => {
+              localStorage.removeItem('demoRole');
+              localStorage.removeItem('demoUser');
+              router.push('/demo-login');
+            }}
+            variant="outline"
+          >
+            Change Role
+          </Button>
+        </div>
       </div>
 
       {/* Alert Examples */}
