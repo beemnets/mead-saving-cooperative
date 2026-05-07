@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import { Card, CardHeader, CardBody } from '@/components/ui';
 
 export default function DashboardPage() {
   const [mounted, setMounted] = useState(false);
@@ -16,43 +17,65 @@ export default function DashboardPage() {
   const isMemberOfficer = roles.includes('MEMBER_OFFICER');
   const isAccountant = roles.includes('ACCOUNTANT');
   const isAuditor = roles.includes('AUDITOR');
+  const isMember = roles.includes('MEMBER');
 
   const quickActions = [
-    { label: 'Add Member', href: '/dashboard/members/new', color: 'from-purple-500 to-pink-500', show: isManager || isMemberOfficer },
-    { label: 'Members', href: '/dashboard/members', color: 'from-violet-500 to-purple-500', show: isManager || isMemberOfficer },
-    { label: 'New Transaction', href: '/dashboard/transactions', color: 'from-green-500 to-emerald-500', show: isManager || isAccountant },
-    { label: 'Accounts', href: '/dashboard/accounts', color: 'from-teal-500 to-green-500', show: isManager || isMemberOfficer || isAccountant },
-    { label: 'Loan Application', href: '/dashboard/loans', color: 'from-blue-500 to-cyan-500', show: isManager || isLoanOfficer || isAccountant },
-    { label: 'View Reports', href: '/dashboard/reports/financial', color: 'from-orange-500 to-red-500', show: isManager || isAccountant || isAuditor },
-    { label: 'Audit Logs', href: '/dashboard/audit', color: 'from-slate-500 to-gray-600', show: isManager || isAuditor },
-    { label: 'Configuration', href: '/dashboard/config', color: 'from-indigo-500 to-violet-600', show: isAdmin },
-    { label: 'Users', href: '/dashboard/users', color: 'from-pink-500 to-rose-500', show: isAdmin },
-    { label: 'Share Capital', href: '/dashboard/share-capital', color: 'from-amber-500 to-yellow-500', show: isManager || isMemberOfficer || isAccountant },
-    { label: 'Payroll', href: '/dashboard/payroll', color: 'from-cyan-500 to-blue-500', show: isManager || isAccountant },
-    { label: 'Documents', href: '/dashboard/documents', color: 'from-rose-500 to-pink-500', show: isManager || isLoanOfficer || isMemberOfficer || isAccountant },
+    { label: 'Add Member', href: '/dashboard/members/new', icon: '➕', show: isManager || isMemberOfficer },
+    { label: 'Members', href: '/dashboard/members', icon: '👥', show: isManager || isMemberOfficer || isMember },
+    { label: 'New Transaction', href: '/dashboard/transactions', icon: '💳', show: isManager || isAccountant },
+    { label: 'Accounts', href: '/dashboard/accounts', icon: '🏦', show: isManager || isMemberOfficer || isAccountant },
+    { label: 'Loan Application', href: '/dashboard/loans', icon: '📋', show: isManager || isLoanOfficer || isAccountant || isMember },
+    { label: 'View Reports', href: '/dashboard/reports/financial', icon: '📊', show: isManager || isAccountant || isAuditor },
+    { label: 'Audit Logs', href: '/dashboard/audit', icon: '🔍', show: isManager || isAuditor },
+    { label: 'Configuration', href: '/dashboard/config', icon: '⚙️', show: isAdmin },
+    { label: 'Users', href: '/dashboard/users', icon: '👤', show: isAdmin },
+    { label: 'Share Capital', href: '/dashboard/share-capital', icon: '📈', show: isManager || isMemberOfficer || isAccountant },
+    { label: 'Payroll', href: '/dashboard/payroll', icon: '💰', show: isManager || isAccountant },
+    { label: 'Documents', href: '/dashboard/documents', icon: '📄', show: isManager || isLoanOfficer || isMemberOfficer || isAccountant },
   ].filter((a) => a.show);
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-xl font-semibold text-gray-900">Dashboard</h1>
+    <div className="space-y-8">
+      {/* Welcome Header */}
+      <div>
+        <h1 className="text-3xl font-bold text-foreground">Welcome back, {mounted ? user?.fullName || user?.username : 'User'}</h1>
+        <p className="text-foreground-secondary mt-2">Here&apos;s an overview of your system and quick access to key functions</p>
+      </div>
 
+      {/* Quick Actions */}
       {quickActions.length > 0 && (
-        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
-          <h2 className="text-base font-semibold text-gray-900 mb-4">Quick Actions</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {quickActions.map((action) => (
-              <Link
-                key={action.label}
-                href={action.href}
-                className="group relative overflow-hidden rounded-xl border border-gray-200 p-4 hover:border-gray-300 hover:shadow-sm transition-all text-center bg-white"
-              >
-                <div className={`inline-block px-3 py-1 rounded-lg bg-gradient-to-br ${action.color} text-white text-xs font-semibold mb-2`}>
-                  {action.label}
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
+        <Card elevated hoverable>
+          <CardHeader title="Quick Actions" description="Fast access to important features" />
+          <CardBody>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {quickActions.map((action) => (
+                <Link
+                  key={action.label}
+                  href={action.href}
+                  className="group relative flex items-center justify-center aspect-square rounded-lg border border-border bg-background-secondary hover:bg-background-tertiary hover:shadow-md transition-all duration-200 overflow-hidden"
+                >
+                  <div className="flex flex-col items-center gap-3 text-center p-4">
+                    <span className="text-4xl transition-transform group-hover:scale-110 duration-200">{action.icon}</span>
+                    <span className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">{action.label}</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </CardBody>
+        </Card>
+      )}
+
+      {/* Empty State */}
+      {quickActions.length === 0 && (
+        <Card elevated>
+          <CardBody className="text-center py-12">
+            <svg className="w-16 h-16 text-foreground-tertiary mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            <h3 className="text-lg font-semibold text-foreground mb-2">No Access</h3>
+            <p className="text-foreground-secondary">Your role doesn&apos;t have access to any features yet. Please contact your administrator.</p>
+          </CardBody>
+        </Card>
       )}
     </div>
   );

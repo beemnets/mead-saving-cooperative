@@ -150,24 +150,23 @@ export function Sidebar() {
   const visibleNavItems = mounted ? navItems.filter((item) => hasAnyRole(item.roles)) : navItems;
 
   return (
-    <aside className="w-56 relative flex flex-col h-full flex-shrink-0">
-      {/* Glass morphism background */}
-      <div className="absolute inset-0 bg-white/40 backdrop-blur-xl border-r border-white/20"></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-50/30 to-purple-50/30"></div>
-      
+    <aside className="w-56 relative flex flex-col h-full flex-shrink-0 bg-background border-r border-border">
       {/* Content */}
-      <div className="relative z-10 flex flex-col h-full">
-        {/* Logo/Brand with glass effect */}
-        <div className="h-16 flex items-center px-6 border-b border-white/20">
+      <div className="flex flex-col h-full">
+        {/* Logo/Brand */}
+        <div className="h-16 flex items-center px-6 border-b border-border bg-gradient-to-r from-primary/5 to-secondary/5">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-md flex-shrink-0">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <h1 className="text-lg font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              Coop System
-            </h1>
+            <div className="flex-1 min-w-0">
+              <h1 className="text-base font-bold text-foreground truncate">
+                Coop System
+              </h1>
+              <p className="text-xs text-foreground-tertiary">Management</p>
+            </div>
           </div>
         </div>
 
@@ -181,23 +180,22 @@ export function Sidebar() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className={`group relative flex items-center gap-3 px-4 py-3 text-sm rounded-xl transition-all duration-200 ${
+                    className={`group relative flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
                       isActive
-                        ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30'
-                        : 'text-gray-700 hover:bg-white/60 hover:shadow-md'
+                        ? 'bg-primary text-white shadow-md shadow-primary/20'
+                        : 'text-foreground-secondary hover:text-foreground hover:bg-background-secondary'
                     }`}
                   >
-                    {/* Icon with gradient background for active state */}
-                    <div className={`flex-shrink-0 ${isActive ? 'text-white' : 'text-gray-600 group-hover:text-blue-600'}`}>
+                    <div className={`flex-shrink-0 w-5 h-5 ${isActive ? 'text-white' : 'text-foreground-tertiary group-hover:text-foreground'}`}>
                       {item.icon}
                     </div>
-                    <span className={`font-medium ${isActive ? 'text-white' : 'text-gray-700 group-hover:text-gray-900'}`}>
+                    <span className="flex-1 truncate">
                       {item.label}
                     </span>
                     
-                    {/* Active indicator */}
+                    {/* Active indicator dot */}
                     {isActive && (
-                      <div className="absolute right-2 w-1.5 h-1.5 rounded-full bg-white"></div>
+                      <div className="absolute right-3 w-1.5 h-1.5 rounded-full bg-white animate-pulse"></div>
                     )}
                   </Link>
                 </li>
@@ -206,13 +204,13 @@ export function Sidebar() {
           </ul>
         </nav>
 
-        {/* Bottom decoration */}
-        <div className="p-4 border-t border-white/20">
-          <div className="px-4 py-3 rounded-xl bg-gradient-to-br from-blue-50/50 to-purple-50/50 backdrop-blur-sm border border-white/30">
-            <p className="text-xs text-gray-600 font-medium">System Status</p>
-            <div className="flex items-center gap-2 mt-1">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-              <p className="text-xs text-gray-500">All systems operational</p>
+        {/* Bottom Status Card */}
+        <div className="p-4 border-t border-border">
+          <div className="px-4 py-3 rounded-lg bg-background-secondary border border-border">
+            <p className="text-xs font-semibold text-foreground">System Status</p>
+            <div className="flex items-center gap-2 mt-2">
+              <div className="w-2 h-2 rounded-full bg-success animate-pulse"></div>
+              <p className="text-xs text-foreground-tertiary">Operational</p>
             </div>
           </div>
         </div>

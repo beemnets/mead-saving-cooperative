@@ -1,6 +1,11 @@
 'use client';
 
-import type { RecentActivity } from '../dashboardApi';
+interface RecentActivity {
+  id: string;
+  description: string;
+  user: string;
+  timestamp: string;
+}
 
 interface Props {
   activities: RecentActivity[];
