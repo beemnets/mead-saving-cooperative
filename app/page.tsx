@@ -67,12 +67,20 @@ export default function HomePage() {
           <p className="text-lg text-gray-500 mb-8 max-w-xl mx-auto">
             A complete system for member management, savings, loans, payroll, and financial reporting — built for Ethiopian cooperatives.
           </p>
-          <button
-            onClick={handleSignIn}
-            className="px-8 py-3 text-base font-semibold text-white bg-blue-600 rounded-xl hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          >
-            {mounted && isAuthenticated ? 'Go to Dashboard' : 'Get Started'}
-          </button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button
+              onClick={handleSignIn}
+              className="px-8 py-3 text-base font-semibold text-white bg-blue-600 rounded-xl hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              {mounted && isAuthenticated ? 'Go to Dashboard' : 'Get Started'}
+            </button>
+            <button
+              onClick={() => router.push('/demo-login')}
+              className="px-8 py-3 text-base font-semibold text-blue-600 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              View New Design Demo
+            </button>
+          </div>
         </div>
       </section>
 

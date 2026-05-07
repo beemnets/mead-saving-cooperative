@@ -137,6 +137,17 @@ export default function LoginPage() {
           </form>
         </div>
 
+        {/* Demo Access */}
+        <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <p className="text-xs text-gray-600 mb-3">Want to see the new modern design?</p>
+          <button
+            onClick={() => router.push('/demo-login')}
+            className="w-full px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-blue-200 rounded-md hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+          >
+            View Design Demo (No Login Required)
+          </button>
+        </div>
+
         {/* Footer */}
         <p className="text-center text-xs text-gray-500 mt-6">
           © 2024 Cooperative Management System. All rights reserved.

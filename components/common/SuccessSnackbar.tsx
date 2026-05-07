@@ -24,10 +24,10 @@ export function SuccessSnackbar({ open = true, message, onClose, duration = 5000
 
   return (
     <div className="fixed bottom-4 right-4 z-50 animate-slide-up">
-      <div className="bg-green-50 border border-green-200 rounded-md shadow-lg p-4 flex items-center gap-3 min-w-[300px]">
+      <div className="bg-success/10 border border-success/20 rounded-lg shadow-lg p-4 flex items-center gap-3 min-w-[300px]">
         {/* Success Icon */}
         <svg
-          className="h-5 w-5 text-green-600 flex-shrink-0"
+          className="h-5 w-5 text-success flex-shrink-0"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -41,12 +41,12 @@ export function SuccessSnackbar({ open = true, message, onClose, duration = 5000
         </svg>
 
         {/* Message */}
-        <p className="text-sm text-green-800 flex-1">{message}</p>
+        <p className="text-sm text-success font-medium flex-1">{message}</p>
 
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="text-green-400 hover:text-green-600"
+          className="text-success/60 hover:text-success transition-colors"
           aria-label="Close"
         >
           <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">

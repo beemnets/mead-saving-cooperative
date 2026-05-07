@@ -9,11 +9,11 @@ export function ErrorAlert({ error, message, onRetry, onDismiss }: ErrorAlertPro
   const errorMessage = message || error?.data?.message || error?.message || 'An error occurred';
   
   return (
-    <div className="bg-red-50 border border-red-200 rounded-md p-4">
+    <div className="bg-error/10 border border-error/20 rounded-lg p-4">
       <div className="flex items-start gap-3">
         {/* Error Icon */}
         <svg
-          className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5"
+          className="h-5 w-5 text-error flex-shrink-0 mt-0.5"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -28,7 +28,7 @@ export function ErrorAlert({ error, message, onRetry, onDismiss }: ErrorAlertPro
 
         {/* Message */}
         <div className="flex-1">
-          <p className="text-sm text-red-800">{errorMessage}</p>
+          <p className="text-sm text-error font-medium">{errorMessage}</p>
         </div>
 
         {/* Actions */}
@@ -36,7 +36,7 @@ export function ErrorAlert({ error, message, onRetry, onDismiss }: ErrorAlertPro
           {onRetry && (
             <button
               onClick={onRetry}
-              className="text-sm text-red-700 hover:text-red-900 font-medium"
+              className="text-sm text-error hover:text-red-700 font-medium transition-colors"
             >
               Retry
             </button>
@@ -44,7 +44,7 @@ export function ErrorAlert({ error, message, onRetry, onDismiss }: ErrorAlertPro
           {onDismiss && (
             <button
               onClick={onDismiss}
-              className="text-red-400 hover:text-red-600"
+              className="text-error/60 hover:text-error transition-colors"
               aria-label="Dismiss"
             >
               <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">

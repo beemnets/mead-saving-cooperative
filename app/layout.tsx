@@ -20,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="antialiased">
+    <html lang="en" className={`${inter.variable} bg-background`}>
+      <body className="antialiased bg-background text-foreground">
         <StoreProvider>{children}</StoreProvider>
       </body>
     </html>
